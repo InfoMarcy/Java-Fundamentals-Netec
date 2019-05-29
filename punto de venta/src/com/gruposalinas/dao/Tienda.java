@@ -4,15 +4,15 @@ import com.gruposalinas.dto.Cliente;
 import com.gruposalinas.dto.TicketDeCompra;
 
 public class Tienda {
-    
+
     private Cliente[] clientes = new Cliente[10];
     private TicketDeCompra[] ticket = new TicketDeCompra[10];
     private int numero;
     private String Domicilio;
     private String telefono;
     private String rfc;
-    
-        public Tienda() {
+
+    public Tienda() {
         this.numero = 1;
         this.Domicilio = "Moctezuma 91";
         this.telefono = "561-123-4252";
@@ -26,7 +26,6 @@ public class Tienda {
         this.rfc = rfc;
     }
 
-        
     public void altaCliente(Cliente cliente) throws Exception {
 
         if (cliente == null) {
@@ -37,14 +36,29 @@ public class Tienda {
     }
 
     public void bajaCliente(int numero) {
-
+        Cliente cliente = buscaCliente(numero);
+        if (cliente != null) {
+            clientes[numero] = null;
+        }
     }
 
-    public void ActualizaCliente(Cliente cliente) {
-
+    public void ActualizaCliente(Cliente cliente) throws Exception { 
+        if(cliente == null)throw new Exception("El Objeto cliente es requerido para la operación");
+        
+        Cliente verificarCliente = buscaCliente(cliente.getNumero());
+        if (verificarCliente != null) {
+            clientes[cliente.getNumero()] = cliente;
+        }
     }
 
     public Cliente buscaCliente(int numero) {
+        for (Cliente cliente : clientes) {
+            if (cliente != null) {
+                if (cliente.getNumero() == numero) {
+                    return cliente;
+                }
+            }
+        }
         return null;
     }
 

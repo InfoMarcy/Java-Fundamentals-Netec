@@ -12,22 +12,21 @@ public class CarritoDeCompras {
         articulos[articulo.getCodigo()] = articulo;
     }
 
-    public void eliminarArticulo(int codigo) {
-        
-        for(Articulo articulo: articulos){
-            if(articulo.getCodigo() == codigo){
-                articulos[codigo] = null;
-            }
-        }
-
-  
+    public void eliminarArticulo(int codigo) {   
+      Articulo articulo =  buscarArticulo(codigo);
+      if(articulo != null){
+           articulos[codigo] = null;
+      } 
 }
 
     public Articulo buscarArticulo(int codigo) {
         for(Articulo articulo: articulos){
-            if(articulo.getCodigo() == codigo){
-                return articulo;
+            if(articulo != null){
+                         if(articulo.getCodigo() == codigo){
+                        return articulo;
+            }   
             }
+
         }
         return null;
     }
