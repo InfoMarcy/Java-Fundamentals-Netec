@@ -3,18 +3,19 @@ package com.gruposalinas.dto;
 import com.gruposalinas.dao.CarritoDeCompras;
 
 public class Cliente {
+
+    private static int folio = 0001;
+
     private int numero;
     private String rfc;
     private String email;
     private CarritoDeCompras carritoCompras;
 
-    public Cliente(int numero, String rfc, String email) {
-        this.numero = numero;
-        this.rfc = rfc;
-        this.email = email;
+    public Cliente(String rfc, String email) {
+        this.numero = folio++;
+        setRfc(rfc);
+        setEmail(email);
     }
-    
-    
 
     public int getNumero() {
         return numero;
@@ -29,11 +30,11 @@ public class Cliente {
     }
 
     public void setRfc(String rfc) {
-        this.rfc = rfc;
+        this.rfc = rfc.toUpperCase();
     }
 
     public String getEmail() {
-        return email;
+        return email.toUpperCase();
     }
 
     public void setEmail(String email) {
@@ -48,5 +49,9 @@ public class Cliente {
         this.carritoCompras = carritoCompras;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Cliente{" + "numero=" + numero + ", rfc=" + rfc + ", email=" + email + '}';
+    }
+
 }

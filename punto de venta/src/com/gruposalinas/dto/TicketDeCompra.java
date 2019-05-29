@@ -1,6 +1,17 @@
 package com.gruposalinas.dto;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class TicketDeCompra {
+
+    private static int siguienteId = 0001;
+
+    public TicketDeCompra() {
+        this.numero = siguienteId++;
+    }
 
     private int numero;
     private double subtotal;
@@ -10,10 +21,6 @@ public class TicketDeCompra {
 
     public int getNumero() {
         return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
     }
 
     public double getSubtotal() {
@@ -48,4 +55,11 @@ public class TicketDeCompra {
         this.total = total;
     }
 
+
+         public void imprimir() {
+             System.out.println("número de ticket: " + this.numero);
+             System.out.println("Fecha: " + LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        }
+    
+        
 }

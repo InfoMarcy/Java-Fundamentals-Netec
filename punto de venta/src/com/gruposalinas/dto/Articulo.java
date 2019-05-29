@@ -1,26 +1,42 @@
 package com.gruposalinas.dto;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class Articulo {
 
     private int codigo;
     private String descripcion;
     private double descuento;
     private double precio;
+    private String garantia;
 
-    public Articulo(int codigo, String descripcion, double descuento, double precio) {
-        this.codigo = codigo;
+    public String getGarantia() {
+        return garantia;
+    }
+
+    public void setGarantia() {
+        
+      this.garantia =  LocalDateTime.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                
+    }
+
+    public Articulo(int codigo, String descripcion, double precio, double descuento) {
+        setCodigo(codigo);
         this.descripcion = descripcion;
         this.descuento = descuento;
         this.precio = precio;
+        setGarantia();
     }
-    
-    
 
     public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    private void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
@@ -40,7 +56,6 @@ public class Articulo {
         this.descuento = descuento;
     }
 
-  
     public void setDescuento(int descuento) {
         this.descuento = descuento;
     }
@@ -53,7 +68,4 @@ public class Articulo {
         this.precio = precio;
     }
 
-  
-
-    
 }
