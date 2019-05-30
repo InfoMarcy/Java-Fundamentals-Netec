@@ -2,19 +2,22 @@ package com.gruposalinas.dto;
 
 import com.gruposalinas.dao.CarritoDeCompras;
 
-public class Cliente {
+public class Cliente extends Persona{
 
-    private static int folio = 0001;
+    public static int folio = 1;
 
     private int numero;
     private String rfc;
     private String email;
     private CarritoDeCompras carritoCompras;
 
-    public Cliente(String rfc, String email) {
+    public Cliente(String nombre, String Domicilio, int edad, String rfc, String email) {
         this.numero = folio++;
         setRfc(rfc);
         setEmail(email);
+        setNombre(nombre);
+        setDomicilio(Domicilio);
+        setEdad(edad);
     }
 
     public int getNumero() {

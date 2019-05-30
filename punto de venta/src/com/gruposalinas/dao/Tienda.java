@@ -2,23 +2,18 @@ package com.gruposalinas.dao;
 
 import com.gruposalinas.dto.Cliente;
 import com.gruposalinas.dto.TicketDeCompra;
+import java.util.ArrayList;
 
 public class Tienda {
 
-    private static Cliente[] clientes = new Cliente[10];
-    private static TicketDeCompra[] tickets = new TicketDeCompra[10];
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static ArrayList<TicketDeCompra> tickets = new ArrayList<>();
     private int numero;
     private String Domicilio;
     private String telefono;
     private String rfc;
 
-    public TicketDeCompra[] getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(TicketDeCompra[] tickets) {
-        Tienda.tickets = tickets;
-    }
+ 
 
     public Tienda() {
         this.numero = 1;
@@ -38,18 +33,19 @@ public class Tienda {
         if (cliente == null) {
             throw new Exception("Cliente no puede ser nulo");
         }
-        clientes[cliente.getNumero()] = cliente;
+        clientes.add(cliente);
+       // clientes[cliente.getNumero()] = cliente;
     }
 
     public void bajaCliente(int numero) {
         Cliente cliente = buscaCliente(numero);
         if (cliente != null) {
-            clientes[numero] = null;
+            clientes.remove(cliente);
+           // clientes[numero] = null;
         }
     }
 
     public void ActualizaCliente(Cliente cliente) throws Exception {
-        System.out.println("ActualizaCliente => " + cliente.getNumero());
 
         if (cliente == null) {
             throw new Exception("El Objeto cliente es requerido para la operación");
@@ -58,8 +54,9 @@ public class Tienda {
         Cliente verificarCliente = buscaCliente(cliente.getNumero());
         if (verificarCliente != null) {
 
-            clientes[cliente.getNumero()] = cliente;
-            System.out.println("EL cliente ha sido actualizado.");
+            clientes.remove(cliente);
+            clientes.add(cliente);
+            //clientes[cliente.getNumero()] = cliente;
         }
     }
 
@@ -95,6 +92,9 @@ public class Tienda {
                 int email = cliente.getEmail().indexOf("@");
                 String dominio = cliente.getEmail().substring(email);
 
+                str.append("Nombre: " + cliente.getNombre() + "\n");
+                str.append("Domicilio: " + cliente.getDomicilio() + "\n");
+                str.append("Edad: " + cliente.getEdad() + "\n");
                 str.append("Email: " + cliente.getEmail() + " con dominio en: " + dominio + "\n");
                 str.append("RFC: " + cliente.getRfc() + "\n");
                 str.append("Numero: " + cliente.getNumero() + "\n" + "\n");
@@ -108,11 +108,72 @@ public class Tienda {
             }
         }
     }
+/*
+    public void imprimeCarritoCompras() {
+        int noClientes = Cliente.folio;
+        int noArticulos = Articulo.folio;
 
+        Articulo carrito[][] = new Articulo[noClientes][noArticulos];
+
+        for (int i = 0; i < clientes.length; i++) {
+
+            if (clientes[i] != null) {
+                System.out.println("Cliente: " + clientes[i].getNumero());
+
+                if (this.buscaCliente(clientes[i].getNumero()) != null) {
+                    //clientes[i].getCarritoCompras().listarArticulos();
+                    System.out.println("El cliente  numero: " + clientes[i].getNumero() + " tiene el siguiente carrito: ");
+                    for (int j = 0; j < clientes[i].getCarritoCompras().getArticulos().length; j++) {
+
+                        if (clientes[i].getCarritoCompras().getArticulos()[j] != null) {
+                            carrito[i][j] = clientes[i].getCarritoCompras().getArticulos()[j];
+                            System.out.println(carrito[i][j].getDescripcion());
+                        }
+                    }
+
+                }
+
+            }
+            
+      
+
+        }
+
+    }*/
+/*
+public void imprimeCarritoCompras() {
+        ArrayList<Articulo> misArticulos = new ArrayList<>();
+        
+
+        for (int i = 0; i < clientes.length;i++) {
+
+            if (clientes[i] != null) {
+                System.out.println("Cliente: " + clientes[i].getNumero());
+
+                if (this.buscaCliente(clientes[i].getNumero()) != null) {
+                    //clientes[i].getCarritoCompras().listarArticulos();
+                    System.out.println("El cliente  numero: " + clientes[i].getNumero() + " tiene el siguiente carrito: ");
+                    for (int j = 0; j < clientes[i].getCarritoCompras().getArticulos().length; j++) {
+
+                        if (clientes[i].getCarritoCompras().getArticulos()[j] != null) {
+                            misArticulos.add(clientes[i].getCarritoCompras().getArticulos()[j]);
+                        }
+                    }
+
+                }
+
+            }
+            
+      
+
+        }
+    }
+*/
     public void agregarTicker(TicketDeCompra ticket) {
 
         if (ticket != null) {
-            tickets[ticket.getNumero()] = ticket;
+            tickets.add(ticket);
+            //tickets[ticket.getNumero()] = ticket;
         }
 
     }
@@ -128,13 +189,7 @@ public class Tienda {
         return null;
     }
 
-    public Cliente[] getClientes() {
-        return clientes;
-    }
 
-    private void setClientes(Cliente[] clientes) {
-        this.clientes = clientes;
-    }
 
     public int getNumero() {
         return numero;
@@ -152,4 +207,22 @@ public class Tienda {
         return rfc;
     }
 
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public static void setClientes(ArrayList<Cliente> clientes) {
+        Tienda.clientes = clientes;
+    }
+
+    public static ArrayList<TicketDeCompra> getTickets() {
+        return tickets;
+    }
+
+    public static void setTickets(ArrayList<TicketDeCompra> tickets) {
+        Tienda.tickets = tickets;
+    }
+
+    
+    
 }

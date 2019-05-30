@@ -1,7 +1,7 @@
 package com.gruposalinas.dto;
 
 
-public class Persona {
+public abstract class Persona {
     
     private String nombre;
     private String domicilio;

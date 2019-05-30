@@ -4,31 +4,24 @@ import com.gruposalinas.dao.CarritoDeCompras;
 import com.gruposalinas.dto.Cliente;
 import com.gruposalinas.dao.Tienda;
 import com.gruposalinas.dto.Articulo;
+import com.gruposalinas.dto.Factura;
 import com.gruposalinas.dto.TicketDeCompra;
 
 public class TestPuntoDeVenta {
 
     public static void main(String args[]) throws Exception {
-        
-        System.out.println("length => " + args.length);
-        System.out.println("args 0=> " + args[0]);
-        System.out.println("args 1=> " + args[1]);
-        
         //Login
-        
-        
-        
-        if(args.length == 0 || (!args[0].equals("Mercy") && !args[1].equals("123"))){
+        if (args.length == 0 || (!args[0].equals("Mercy") && !args[1].equals("123"))) {
             System.exit(0);
         }
-          
-        System.out.println("Creando Tienda" + "\n");
+
+        //System.out.println("Creando Tienda" + "\n");
         Tienda tienda = new Tienda();
         Tienda tienda2 = new Tienda(2, "Roma 102", "561-123-3262", "Rfctienda");
 
-        System.out.println("Creando Cliente" + "\n");
-        Cliente cliente1 = new Cliente("RFCf324531231", "Jose@gmail.com");
-        Cliente cliente2 = new Cliente("RFCf324531231", "Juan@gmail.com");
+        //System.out.println("Creando Cliente" + "\n");
+        Cliente cliente1 = new Cliente("Jose", "Moctezuma 202", 35, "RFCf324531231", "Jose@gmail.com");
+        Cliente cliente2 = new Cliente("Juan", "Reforma 32", 29,"RFCf324531231", "Juan@gmail.com");
 
         // Creando Articulos
         Articulo articulo = new Articulo(1, "Honda City 2015", 300_123.99, 45000);
@@ -37,24 +30,22 @@ public class TestPuntoDeVenta {
 
         // Agregar articulos al carrito de los clientes
         CarritoDeCompras carrito = new CarritoDeCompras();
+        CarritoDeCompras carrito2 = new CarritoDeCompras();
         if (articulo != null) {
             carrito.agregaArticulo(articulo);
-            carrito.agregaArticulo(articulo3);
-            cliente1.setCarritoCompras(carrito);
-            cliente2.setCarritoCompras(carrito);
+            carrito.agregaArticulo(articulo3);  
         }
-
         if (articulo2 != null) {
-            carrito.agregaArticulo(articulo2);
-            cliente2.setCarritoCompras(carrito);
-            cliente2.setCarritoCompras(carrito);
+            carrito2.agregaArticulo(articulo2);
         }
+        
+        cliente1.setCarritoCompras(carrito);
+        cliente2.setCarritoCompras(carrito2);
 
         // Dar de alta al cliente
         tienda.altaCliente(cliente1);
         tienda.altaCliente(cliente2);
 
-        
         // Busca Cliente
         Cliente updateCliente = tienda.buscaCliente(1);
         updateCliente.setEmail("hola@bancoazteca.com");
@@ -65,26 +56,33 @@ public class TestPuntoDeVenta {
         // Da de baja a un cliente (Este primero hace la busqueda del cliente y si existe lo elimina)
         //tienda.bajaCliente(1);
         // Elimina articulo del carrito (Este primero hace la busqueda del articulo y si existe lo elimina)
-        carrito.eliminarArticulo(2);
+        //carrito.eliminarArticulo(2);
 
         // Imprime cliente
-        tienda.imprimeClientes();
-
+        //tienda.imprimeClientes();
         // Imprime los articulos que existen en el carrito
-        carrito.imprimir();
-  
+        //carrito.imprimir();
         // System.out.println("Busqueda Cliente por RFC => " + tienda.buscaCliente("RFCf324531231").toString());  
         //  System.out.println("Busqueda Cliente por numero => " + tienda.buscaCliente(2).toString());
-        if (tienda.getTickets() == tienda2.getTickets()) {
+      /*  if (tienda.getTickets() == tienda2.getTickets()) {
             System.out.println("Tickets de la tienda 1 es igual al ticket de la tienda 2");
         } else {
             System.out.println("Los tickets son diferentes.");
         }
-       
-        
-      // Imprime ticket  
-      TicketDeCompra ticket = new TicketDeCompra();
-      ticket.imprimir();
+*/
+        // Imprime ticket  
+       // TicketDeCompra ticket = new TicketDeCompra();
+        //ticket.imprimir();
 
+        
+        
+        //tienda.imprimeCarritoCompras();
+        
+        CarritoDeCompras ticket = new CarritoDeCompras();
+         ticket.imprimir();
+        
+        Factura factura = new Factura(cliente1);
+        
+       // factura.imprimir();
     }
 }

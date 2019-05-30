@@ -1,13 +1,13 @@
 package com.gruposalinas.dto;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Articulo {
 
+public static int folio = 1;
+    
     private int codigo;
     private String descripcion;
     private double descuento;
@@ -19,7 +19,6 @@ public class Articulo {
     }
 
     public void setGarantia() {
-        
       this.garantia =  LocalDateTime.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
                 
     }
@@ -34,9 +33,11 @@ public class Articulo {
 
     public int getCodigo() {
         return codigo;
+        
     }
 
     private void setCodigo(int codigo) {
+        folio++;
         this.codigo = codigo;
     }
 

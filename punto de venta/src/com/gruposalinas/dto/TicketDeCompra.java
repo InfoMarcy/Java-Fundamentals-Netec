@@ -1,14 +1,17 @@
 package com.gruposalinas.dto;
 
-import java.text.SimpleDateFormat;
+import com.gruposalinas.dao.CarritoDeCompras;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 
-public class TicketDeCompra {
+public class TicketDeCompra extends CarritoDeCompras {
 
     private static int siguienteId = 0001;
 
+    /**
+     *
+     */
     public TicketDeCompra() {
         this.numero = siguienteId++;
     }
@@ -16,8 +19,32 @@ public class TicketDeCompra {
     private int numero;
     private double subtotal;
     private double descuento;
-    private double iva;
+    private double iva = 0.16;
     private double total;
+
+    public void imprimir() {
+        System.out.println("===========================================================");
+        System.out.println("========================== Factura=========================");
+        System.out.println("===========================================================");
+        System.out.println("Número de ticket: " + this.numero);
+        System.out.println("Fecha: " + LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        System.out.println();
+        super.imprimir();
+
+        ArrayList<Articulo> articulos = getArticulos();
+
+        for (Articulo item : articulos) {
+            setSubtotal((item.getPrecio() - item.getDescuento()));
+
+        }
+        setTotal(getSubtotal() * (1 + getIva()));
+        
+         System.out.println("===========================================================");
+        System.out.println("===========================================================");
+        System.out.println("Subtotal: $" + getSubtotal());
+        System.out.println("El iva es: " + getIva());
+        System.out.println("Total a pagar: $" + getTotal());
+    }
 
     public int getNumero() {
         return numero;
@@ -28,7 +55,7 @@ public class TicketDeCompra {
     }
 
     public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+        this.subtotal += subtotal;
     }
 
     public double getDescuento() {
@@ -52,14 +79,7 @@ public class TicketDeCompra {
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        this.total += total;
     }
 
-
-         public void imprimir() {
-             System.out.println("número de ticket: " + this.numero);
-             System.out.println("Fecha: " + LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        }
-    
-        
 }
