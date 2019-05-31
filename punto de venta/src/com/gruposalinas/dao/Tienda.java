@@ -2,10 +2,11 @@ package com.gruposalinas.dao;
 
 import com.gruposalinas.dto.Cliente;
 import com.gruposalinas.dto.TicketDeCompra;
+import com.gruposalinas.interfaces.ManejaClientes;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Tienda {
+public class Tienda implements ManejaClientes{
 
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<TicketDeCompra> tickets = new ArrayList<>();
@@ -27,7 +28,7 @@ public class Tienda {
         this.telefono = telefono;
         this.rfc = rfc;
     }
-
+    @Override
     public void altaCliente(Cliente cliente) {
         if (cliente != null) {
             clientes.add(cliente);
@@ -36,10 +37,12 @@ public class Tienda {
         // clientes[cliente.getNumero()] = cliente;
     }
 
+     @Override
     public void bajaCliente(int numero) {
         clientes.removeIf(s -> s.equals(buscaCliente(numero)));
     }
 
+     @Override
     public void ActualizaCliente(Cliente cliente){
 
         if (cliente != null) {
@@ -54,6 +57,7 @@ public class Tienda {
         }
     }
 
+     @Override
     public Cliente buscaCliente(int numero) {
         for (Cliente cliente : clientes) {
             if (cliente != null) {
@@ -65,6 +69,7 @@ public class Tienda {
         return null;
     }
 
+     @Override
     public Cliente buscaCliente(String rfc) {
         for (Cliente cliente : clientes) {
 
@@ -75,7 +80,7 @@ public class Tienda {
         }
         return null;
     }
-
+   @Override
     public void imprimeClientes() {
         for (Cliente cliente : clientes) {
             if (cliente != null) {

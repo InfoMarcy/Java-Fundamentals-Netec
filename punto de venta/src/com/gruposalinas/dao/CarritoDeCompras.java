@@ -2,12 +2,14 @@ package com.gruposalinas.dao;
 
 import com.gruposalinas.dto.Articulo;
 import com.gruposalinas.exceptions.ElementosInexistentesException;
+import com.gruposalinas.interfaces.OperaArticulos;
 import java.util.ArrayList;
 
-public class CarritoDeCompras {
+public class CarritoDeCompras  implements OperaArticulos {
 
     private static ArrayList<Articulo> articulos = new ArrayList<>();
 
+    @Override
     public void agregaArticulo(Articulo articulo) {
         if(articulo != null){
            articulos.add(articulo); 
@@ -22,7 +24,7 @@ public class CarritoDeCompras {
     protected static void setArticulos(ArrayList<Articulo> articulos) {
         CarritoDeCompras.articulos = articulos;
     }
-
+    @Override
     public void eliminarArticulo(int codigo) { 
         Articulo articulo;
         try{
@@ -34,7 +36,7 @@ public class CarritoDeCompras {
        
        
     }
-
+   @Override
     public Articulo buscarArticulo(int codigo) throws ElementosInexistentesException {
         for (Articulo articulo : articulos) {
            
@@ -48,6 +50,8 @@ public class CarritoDeCompras {
 
     }
 
+    
+    @Override
     public void listarArticulos() {
         for (Articulo articulo : articulos) {
             if (articulo != null && articulo.getCodigo() != 0) {
