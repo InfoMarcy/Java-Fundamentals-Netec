@@ -5,11 +5,12 @@ import com.gruposalinas.dto.Cliente;
 import com.gruposalinas.dao.Tienda;
 import com.gruposalinas.dto.Articulo;
 import com.gruposalinas.dto.Factura;
-import com.gruposalinas.dto.TicketDeCompra;
+
+import com.gruposalinas.exceptions.ElementosInexistentesException;
 
 public class TestPuntoDeVenta {
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[]) {
         //Login
         if (args.length == 0 || (!args[0].equals("Mercy") && !args[1].equals("123"))) {
             System.exit(0);
@@ -32,8 +33,8 @@ public class TestPuntoDeVenta {
         CarritoDeCompras carrito = new CarritoDeCompras();
         CarritoDeCompras carrito2 = new CarritoDeCompras();
         if (articulo != null) {
-            carrito.agregaArticulo(articulo);
-            carrito.agregaArticulo(articulo3);  
+          carrito.agregaArticulo(articulo);
+          carrito.agregaArticulo(articulo3);  
         }
         if (articulo2 != null) {
             carrito2.agregaArticulo(articulo2);
@@ -51,7 +52,13 @@ public class TestPuntoDeVenta {
         updateCliente.setEmail("hola@bancoazteca.com");
         updateCliente.setRfc("RCF12345");
         // Actualiza Cliente
-        tienda.ActualizaCliente(updateCliente);
+        
+        try{
+             tienda.ActualizaCliente(updateCliente);
+        } catch(Exception e){
+            System.out.println("Elemento inexistente..." + e.getMessage());
+        }
+       
 
         // Da de baja a un cliente (Este primero hace la busqueda del cliente y si existe lo elimina)
         //tienda.bajaCliente(1);
@@ -79,10 +86,18 @@ public class TestPuntoDeVenta {
         //tienda.imprimeCarritoCompras();
         
         CarritoDeCompras ticket = new CarritoDeCompras();
-         ticket.imprimir();
+        
+        
+        try{
+            ticket.buscarArticulo(1234);
+        }catch(ElementosInexistentesException e){
+            System.out.println("Elemento inexistente..." + e.getMessage());
+        }
+        
+        // ticket.imprimir();
         
         Factura factura = new Factura(cliente1);
         
-       // factura.imprimir();
+        factura.imprimir();
     }
 }

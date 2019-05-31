@@ -2,7 +2,7 @@ package com.gruposalinas.dto;
 
 import com.gruposalinas.dao.CarritoDeCompras;
 
-public class Cliente extends Persona{
+public class Cliente extends Persona implements Comparable<Cliente>{
 
     public static int folio = 1;
 
@@ -55,6 +55,13 @@ public class Cliente extends Persona{
     @Override
     public String toString() {
         return "Cliente{" + "numero=" + numero + ", rfc=" + rfc + ", email=" + email + '}';
+    }
+
+ 
+
+    @Override
+    public int compareTo(Cliente cliente) {
+                  return cliente.getNombre().compareTo(this.getNombre());
     }
 
 }

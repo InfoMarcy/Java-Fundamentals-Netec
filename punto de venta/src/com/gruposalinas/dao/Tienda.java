@@ -3,6 +3,7 @@ package com.gruposalinas.dao;
 import com.gruposalinas.dto.Cliente;
 import com.gruposalinas.dto.TicketDeCompra;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Tienda {
 
@@ -12,8 +13,6 @@ public class Tienda {
     private String Domicilio;
     private String telefono;
     private String rfc;
-
- 
 
     public Tienda() {
         this.numero = 1;
@@ -29,34 +28,29 @@ public class Tienda {
         this.rfc = rfc;
     }
 
-    public void altaCliente(Cliente cliente) throws Exception {
-        if (cliente == null) {
-            throw new Exception("Cliente no puede ser nulo");
+    public void altaCliente(Cliente cliente) {
+        if (cliente != null) {
+            clientes.add(cliente);
         }
-        clientes.add(cliente);
-       // clientes[cliente.getNumero()] = cliente;
+
+        // clientes[cliente.getNumero()] = cliente;
     }
 
     public void bajaCliente(int numero) {
-        Cliente cliente = buscaCliente(numero);
-        if (cliente != null) {
-            clientes.remove(cliente);
-           // clientes[numero] = null;
-        }
+        clientes.removeIf(s -> s.equals(buscaCliente(numero)));
     }
 
-    public void ActualizaCliente(Cliente cliente) throws Exception {
+    public void ActualizaCliente(Cliente cliente){
 
-        if (cliente == null) {
-            throw new Exception("El Objeto cliente es requerido para la operación");
-        }
+        if (cliente != null) {
 
-        Cliente verificarCliente = buscaCliente(cliente.getNumero());
-        if (verificarCliente != null) {
+            Cliente verificarCliente = buscaCliente(cliente.getNumero());
+            if (verificarCliente != null) {
 
-            clientes.remove(cliente);
-            clientes.add(cliente);
-            //clientes[cliente.getNumero()] = cliente;
+                clientes.remove(cliente);
+                clientes.add(cliente);
+                //clientes[cliente.getNumero()] = cliente;
+            }
         }
     }
 
@@ -108,7 +102,36 @@ public class Tienda {
             }
         }
     }
-/*
+
+    public void imprimeClientesPorNombre() {
+        for (Cliente cliente : clientes) {
+            Collections.sort(clientes);
+            if (cliente != null) {
+
+                StringBuilder str = new StringBuilder();
+                str.append("Datos del Cliente: \n");
+
+                int email = cliente.getEmail().indexOf("@");
+                String dominio = cliente.getEmail().substring(email);
+
+                str.append("Nombre: " + cliente.getNombre() + "\n");
+                str.append("Domicilio: " + cliente.getDomicilio() + "\n");
+                str.append("Edad: " + cliente.getEdad() + "\n");
+                str.append("Email: " + cliente.getEmail() + " con dominio en: " + dominio + "\n");
+                str.append("RFC: " + cliente.getRfc() + "\n");
+                str.append("Numero: " + cliente.getNumero() + "\n" + "\n");
+
+                str.append("Carrito del Cliente: Lista de articulos");
+
+                System.out.println(str);
+
+                cliente.getCarritoCompras().listarArticulos();
+
+            }
+        }
+    }
+
+    /*
     public void imprimeCarritoCompras() {
         int noClientes = Cliente.folio;
         int noArticulos = Articulo.folio;
@@ -140,7 +163,7 @@ public class Tienda {
         }
 
     }*/
-/*
+ /*
 public void imprimeCarritoCompras() {
         ArrayList<Articulo> misArticulos = new ArrayList<>();
         
@@ -168,7 +191,7 @@ public void imprimeCarritoCompras() {
 
         }
     }
-*/
+     */
     public void agregarTicker(TicketDeCompra ticket) {
 
         if (ticket != null) {
@@ -188,8 +211,6 @@ public void imprimeCarritoCompras() {
 
         return null;
     }
-
-
 
     public int getNumero() {
         return numero;
@@ -223,6 +244,9 @@ public void imprimeCarritoCompras() {
         Tienda.tickets = tickets;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "Tienda{" + "numero=" + numero + ", Domicilio=" + Domicilio + ", telefono=" + telefono + ", rfc=" + rfc + '}';
+    }
+
 }

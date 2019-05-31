@@ -1,6 +1,7 @@
 package com.gruposalinas.dao;
 
 import com.gruposalinas.dto.Articulo;
+import com.gruposalinas.exceptions.ElementosInexistentesException;
 import java.util.ArrayList;
 
 public class CarritoDeCompras {
@@ -22,23 +23,29 @@ public class CarritoDeCompras {
         CarritoDeCompras.articulos = articulos;
     }
 
-    public void eliminarArticulo(int codigo) {
-        Articulo articulo = buscarArticulo(codigo);
-        if (articulo != null) {
-            articulos.remove(articulo);
-           // articulos[codigo] = null;
+    public void eliminarArticulo(int codigo) { 
+        Articulo articulo;
+        try{
+              articulo = buscarArticulo(codigo);
+              articulos.removeIf( a -> a.equals(articulo) );
+        } catch(ElementosInexistentesException e){
+            System.out.println("Exception => Mensaje: " + e.getMessage()); 
         }
+       
+       
     }
 
-    public Articulo buscarArticulo(int codigo) {
+    public Articulo buscarArticulo(int codigo) throws ElementosInexistentesException {
         for (Articulo articulo : articulos) {
-
+           
             if (articulo != null && articulo.getCodigo() == codigo) {
                 return articulo;
             }
 
         }
-        return null;
+        
+         throw new ElementosInexistentesException("No articulo encontrado con ese codigo");
+
     }
 
     public void listarArticulos() {

@@ -82,4 +82,10 @@ public class TicketDeCompra extends CarritoDeCompras {
         this.total += total;
     }
 
+    @Override
+    public String toString() {
+        return "TicketDeCompra{" + "numero=" + numero + ", subtotal=" + subtotal + ", descuento=" + descuento + ", iva=" + iva + ", total=" + total + '}';
+    }
+
+    
 }

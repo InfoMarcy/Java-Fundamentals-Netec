@@ -69,4 +69,11 @@ public static int folio = 1;
         this.precio = precio;
     }
 
+    @Override
+    public String toString() {
+        return "Articulo{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", descuento=" + descuento + ", precio=" + precio + ", garantia=" + garantia + '}';
+    }
+
+    
+    
 }

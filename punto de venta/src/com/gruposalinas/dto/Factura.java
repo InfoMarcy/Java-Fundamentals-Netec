@@ -40,6 +40,11 @@ public class Factura extends TicketDeCompra {
         this.cliente = cliente;
     }
 
+    @Override
+    public String toString() {
+        return "Factura{" + "folio=" + folio + ", cliente=" + cliente + '}';
+    }
+
  
 
 
